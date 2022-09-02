@@ -6,9 +6,12 @@ from implemented import user_service
 user_ns = Namespace('users')
 
 
+@user_ns.doc(params={"username": "Username",
+                     "password": "Password",
+                     "role": "Role"})
 @user_ns.route('/')
-class UserView(Resource):
+class UsersView(Resource):
     def post(self):
-        data = request.json
+        data = dict(request.args)
 
         return UserSchema().dump(user_service.create(data)), 201
